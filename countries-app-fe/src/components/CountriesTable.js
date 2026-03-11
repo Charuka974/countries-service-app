@@ -23,15 +23,18 @@ const CountriesTable = ({ countries, onRowClick }) => {
         </thead>
         <tbody>
           {countries.map((country) => {
-            const name = country.name?.common || 'Unknown';
-            const capital = country.capital ? country.capital[0] : 'N/A';
+
+            const name = country.name || 'Unknown';
+            const capital = country.capital || 'N/A';
             const region = country.region || 'N/A';
-            const population = country.population ? country.population.toLocaleString() : 'N/A';
-            const flagUrl = country.flags?.svg || country.flags?.png;
+            const population = country.population
+              ? country.population.toLocaleString()
+              : 'N/A';
+            const flagUrl = country.flag;
 
             return (
-              <tr 
-                key={country.name?.official || name} 
+              <tr
+                key={country.name}
                 className="table-row"
                 onClick={() => onRowClick(country)}
               >

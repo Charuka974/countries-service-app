@@ -3,16 +3,14 @@ package com.sentura.countries_service.controller;
 import com.sentura.countries_service.model.Country;
 import com.sentura.countries_service.service.CountriesService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/countries")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class CountriesController {
 
     private final CountriesService countriesService;

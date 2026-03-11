@@ -31,9 +31,10 @@ function App() {
   const filteredCountries = useMemo(() => {
     if (!search.trim()) return countries;
     const lowerQuery = search.toLowerCase();
+
     return countries.filter((country) => {
-      const name = country.name?.common?.toLowerCase() || '';
-      const capital = country.capital ? country.capital[0]?.toLowerCase() : '';
+      const name = country.name?.toLowerCase() || '';
+      const capital = country.capital?.toLowerCase() || '';
       return name.includes(lowerQuery) || capital.includes(lowerQuery);
     });
   }, [search, countries]);

@@ -10,13 +10,13 @@ const CountryModal = ({ country, onClose }) => {
 
   if (!country) return null;
 
-  const name = country.name?.common || 'Unknown';
-  const officialName = country.name?.official || 'Unknown';
-  const capital = country.capital ? country.capital[0] : 'N/A';
+  const name = country.name || 'Unknown';
+  const officialName = country.name || 'Unknown';
+  const capital = country.capital || 'N/A';
+  const flagUrl = country.flag;
   const region = country.region || 'N/A';
   const subregion = country.subregion || 'N/A';
   const population = country.population ? country.population.toLocaleString() : 'N/A';
-  const flagUrl = country.flags?.svg || country.flags?.png;
 
   return (
     <div className="modal-overlay" onClick={onClose}>

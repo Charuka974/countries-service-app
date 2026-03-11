@@ -1,6 +1,7 @@
 package com.sentura.countries_service.service;
 
 import com.sentura.countries_service.model.Country;
+import jakarta.annotation.PostConstruct;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,20 @@ public class CountriesService {
                 .toList();
     }
 
-    @Scheduled(fixedRate = 600_000) // 10 minutes
+    @PostConstruct
+    public void init(){
+        refreshCountries();
+    }
+
+    @Scheduled(fixedRate = 600000)
     public void refreshCountries() {
+
         RestTemplate restTemplate = new RestTemplate();
 
+        String url = "https://restcountries.com/v3.1/all?fields=name,capital,region,population,flags";
+
         ResponseEntity<List> response =
-                restTemplate.getForEntity("https://restcountries.com/v3.1/all", List.class);
+                restTemplate.getForEntity(url, List.class);
 
         List<Map<String, Object>> countries = response.getBody();
 
@@ -39,34 +48,43 @@ public class CountriesService {
         List<Country> updatedCountries = new ArrayList<>();
 
         for (Map<String, Object> c : countries) {
+
             try {
+
                 // Name
+                String name = "Unknown";
                 Map<String, Object> nameMap = (Map<String, Object>) c.get("name");
-                String name = nameMap != null ? (String) nameMap.get("common") : "N/A";
+                if (nameMap != null && nameMap.get("common") != null) {
+                    name = nameMap.get("common").toString();
+                }
 
                 // Capital
-                List<String> capitals = (List<String>) c.get("capital");
-                String capital = (capitals != null && !capitals.isEmpty()) ? capitals.get(0) : "N/A";
+                String capital = "N/A";
+                List<?> capitals = (List<?>) c.get("capital");
+                if (capitals != null && !capitals.isEmpty()) {
+                    capital = capitals.get(0).toString();
+                }
 
                 // Region
-                String region = (String) c.getOrDefault("region", "N/A");
+                String region = c.get("region") != null ? c.get("region").toString() : "N/A";
 
                 // Population
-                Object popObj = c.get("population");
                 long population = 0;
-                if (popObj instanceof Integer) {
-                    population = ((Integer) popObj).longValue();
-                } else if (popObj instanceof Long) {
-                    population = (Long) popObj;
+                Object popObj = c.get("population");
+                if (popObj instanceof Number) {
+                    population = ((Number) popObj).longValue();
                 }
 
                 // Flag
+                String flag = "";
                 Map<String, Object> flags = (Map<String, Object>) c.get("flags");
-                String flag = flags != null ? (String) flags.get("png") : "";
+                if (flags != null && flags.get("png") != null) {
+                    flag = flags.get("png").toString();
+                }
 
                 updatedCountries.add(new Country(name, capital, region, population, flag));
+
             } catch (Exception e) {
-                // Skip malformed country entries
                 e.printStackTrace();
             }
         }
