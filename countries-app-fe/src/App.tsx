@@ -44,10 +44,11 @@ function App() {
       <header className="header">
         <h1 className="title">Countries Explore</h1>
         <p className="subtitle">Discover nations, capitals, regions and populations from around the world.</p>
+        
+        <SearchBar search={search} setSearch={setSearch} />
       </header>
       
       <main>
-        <SearchBar search={search} setSearch={setSearch} />
         
         <div style={{ marginTop: '30px' }}>
           {loading ? (
