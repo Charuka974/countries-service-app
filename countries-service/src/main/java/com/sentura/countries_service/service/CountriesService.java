@@ -4,7 +4,7 @@ import com.sentura.countries_service.model.Country;
 
 import java.util.List;
 
-public interface CountryService {
+public interface CountriesService {
     public List<Country> getCountries();
     public List<Country> searchCountries(String search);
     public void init();

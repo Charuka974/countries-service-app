@@ -1,7 +1,7 @@
 package com.sentura.countries_service.controller;
 
 import com.sentura.countries_service.model.Country;
-import com.sentura.countries_service.service.CountriesServiceImpl;
+import com.sentura.countries_service.service.CountriesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class CountriesController {
 
-    private final CountriesServiceImpl countriesServiceImpl;
+    private final CountriesService countriesServiceImpl;
 
     @GetMapping
     public List<Country> getCountries(@RequestParam(required = false) String search) {

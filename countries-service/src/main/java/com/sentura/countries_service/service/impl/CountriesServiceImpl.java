@@ -1,6 +1,7 @@
-package com.sentura.countries_service.service;
+package com.sentura.countries_service.service.impl;
 
 import com.sentura.countries_service.model.Country;
+import com.sentura.countries_service.service.CountriesService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CountriesServiceImpl implements CountryService{
+public class CountriesServiceImpl implements CountriesService {
 
     private List<Country> cachedCountries = new ArrayList<>();
 
