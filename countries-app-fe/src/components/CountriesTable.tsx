@@ -1,6 +1,12 @@
 import React from 'react';
+import { Country } from '../services/api';
 
-const CountriesTable = ({ countries, onRowClick }) => {
+interface CountriesTableProps {
+  countries: Country[];
+  onRowClick: (country: Country) => void;
+}
+
+const CountriesTable: React.FC<CountriesTableProps> = ({ countries, onRowClick }) => {
   if (!countries || countries.length === 0) {
     return (
       <div className="empty-container">

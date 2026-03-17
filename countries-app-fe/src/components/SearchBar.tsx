@@ -1,6 +1,11 @@
 import React from 'react';
 
-const SearchBar = ({ search, setSearch }) => {
+interface SearchBarProps {
+  search: string;
+  setSearch: (value: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch }) => {
   return (
     <div className="search-container">
       <svg 

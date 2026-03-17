@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CountriesService {
+public class CountriesServiceImpl implements CountryService{
 
     private List<Country> cachedCountries = new ArrayList<>();
 

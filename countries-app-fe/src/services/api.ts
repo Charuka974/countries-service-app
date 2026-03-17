@@ -14,7 +14,16 @@
 //};
 
 // api.js or wherever you keep your API calls
-export const fetchCountries = async () => {
+export interface Country {
+  name: string;
+  capital: string;
+  region: string;
+  subregion?: string;
+  population: number;
+  flag: string;
+}
+
+export const fetchCountries = async (): Promise<Country[]> => {
   try {
     // Call your Spring Boot backend
     const response = await fetch('http://localhost:8080/countries');
@@ -23,7 +32,7 @@ export const fetchCountries = async () => {
       throw new Error('Failed to fetch countries from backend');
     }
 
-    const data = await response.json();
+    const data: Country[] = await response.json();
     return data;
   } catch (error) {
     console.error('Error fetching countries:', error);
@@ -32,7 +41,7 @@ export const fetchCountries = async () => {
 };
 
 // Optional: Search function using backend query param
-export const searchCountries = async (search) => {
+export const searchCountries = async (search: string): Promise<Country[]> => {
   try {
     const response = await fetch(`http://localhost:8080/countries?search=${encodeURIComponent(search)}`);
 
@@ -40,7 +49,7 @@ export const searchCountries = async (search) => {
       throw new Error('Failed to search countries');
     }
 
-    const data = await response.json();
+    const data: Country[] = await response.json();
     return data;
   } catch (error) {
     console.error('Error searching countries:', error);

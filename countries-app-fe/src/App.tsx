@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { fetchCountries } from './api';
+import { fetchCountries, Country } from './services/api';
 import SearchBar from './components/SearchBar';
 import CountriesTable from './components/CountriesTable';
 import CountryModal from './components/CountryModal';
 import './App.css';
 
 function App() {
-  const [countries, setCountries] = useState([]);
-  const [search, setSearch] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [search, setSearch] = useState<string>('');
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadData = async () => {

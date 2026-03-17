@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
+import { Country } from '../services/api';
 
-const CountryModal = ({ country, onClose }) => {
+interface CountryModalProps {
+  country: Country;
+  onClose: () => void;
+}
+
+const CountryModal: React.FC<CountryModalProps> = ({ country, onClose }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
